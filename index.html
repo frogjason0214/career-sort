@@ -83,7 +83,7 @@ h1,h2,h3{margin:0;line-height:1.25}
 .chip.selected{background:var(--sel-soft);border-color:var(--sel);box-shadow:0 0 0 3px color-mix(in srgb,var(--sel) 35%,transparent)}
 .addword{display:flex;gap:8px;margin-top:10px}
 .addword input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:10px;padding:.55em .8em;background:var(--surface)}
-.cats{display:grid;gap:12px}
+.cats{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 .cat{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:12px;border:2px solid transparent;transition:border-color .15s,background .15s}
 .cat.target{border-color:var(--sel);background:color-mix(in srgb,var(--sel-soft) 55%,var(--surface))}
 .cat.unsure{background:transparent;box-shadow:none;border:2px dashed var(--line)}
@@ -98,6 +98,30 @@ h1,h2,h3{margin:0;line-height:1.25}
 .cat.unsure .cat-body{background:transparent}
 .cat-body .hint{color:var(--ink-3);font-size:.85rem;align-self:center;padding:0 6px}
 .unsure-title{font-weight:700;color:var(--ink-2)}
+
+/* 步驟 */
+.stepper{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.stepper i{display:block;height:6px;border-radius:99px;background:var(--surface-2)}
+.stepper i.on{background:var(--accent)}
+.phase-head{margin:22px 0 14px}
+.phase-head h2{font-size:1.35rem;font-weight:900;margin-bottom:4px}
+.phase-head p{margin:0}
+.pool.preview .chip{cursor:default}
+.pool.preview .chip:active{transform:none}
+.small-chips .chip{font-size:.88rem;padding:.3em .6em}
+.setup-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.setup-row{min-width:0;display:flex;gap:10px;align-items:center;background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:10px 12px}
+.setup-row .num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:900;display:grid;place-items:center;font-size:.9rem}
+.setup-row input{flex:1;min-width:0;border:0;border-bottom:1.5px solid var(--line);background:transparent;padding:.4em .1em;font-weight:700;font-size:1.05rem;border-radius:0}
+.setup-row input:focus{outline:none;border-bottom-color:var(--accent)}
+.setup-row input.need{border-bottom-color:var(--warn)}
+.setup-row .x{border:0;background:none;color:var(--ink-3);font-size:1.4rem;line-height:1;padding:.1em .3em}
+.setup-row .meta{font-size:.78rem;color:var(--ink-3);white-space:nowrap}
+.peek{margin-top:22px}
+.peek summary{cursor:pointer;color:var(--accent);font-weight:700;padding:.4em 0}
+.peek .pool{margin-top:8px}
+.cat-name{flex:1;min-width:0;font-weight:700;font-size:1.05rem;overflow-wrap:anywhere}
+.cat-head .ren{border:0;background:none;color:var(--ink-3);font-size:.85rem;padding:.2em .4em;text-decoration:underline}
 
 /* 底部動作區 */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.08)}
@@ -139,7 +163,7 @@ body.presenting{font-size:18px}
 .ptools button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:.35em .9em;font-size:.85rem}
 .ptools button.danger{color:var(--warn);border-color:var(--warn-soft)}
 .banner{margin-top:12px;background:var(--sel-soft);border:1px solid var(--sel);border-radius:12px;padding:.6em 1em;font-size:.92rem}
-.slide{padding:28px 0}
+.slide{padding:18px 0}
 .slide h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900}
 .slide .lead{color:var(--ink-2);font-size:clamp(1rem,1.6vw,1.25rem);margin:.4em 0 1.2em}
 .pnav{position:fixed;bottom:16px;right:24px;display:flex;gap:10px;z-index:10}
@@ -153,14 +177,14 @@ body.presenting{font-size:18px}
 .url{font-size:.9rem;color:var(--ink-2);word-break:break-all;margin-top:10px;max-width:280px}
 
 .cloud{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 26px;padding:30px;background:var(--surface);border-radius:20px;box-shadow:var(--shadow);min-height:300px}
-.cloud span{font-weight:900;line-height:1.1;white-space:nowrap}
+.cloud span{font-weight:900;line-height:1.1;max-width:100%;overflow-wrap:anywhere;text-align:center}
 .cloud span sup{font-size:.4em;font-weight:500;color:var(--ink-3);margin-left:.15em}
 
-.heat-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+.heat-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:36px;align-items:start}
 .heat-ctrl{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .heat-ctrl button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:.35em .9em;font-size:.88rem}
 .heat-ctrl button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.heat{max-width:max(440px,calc(100vh - 300px));display:grid;gap:2px;font-size:clamp(.62rem,.95vw,.85rem)}
+.heat{width:100%;max-width:900px;display:grid;gap:2px;font-size:clamp(.62rem,.95vw,.85rem)}
 .heat .lbl{display:flex;align-items:center;justify-content:flex-end;padding-right:6px;white-space:nowrap;font-weight:500}
 .heat .clbl{writing-mode:vertical-rl;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;white-space:nowrap;font-weight:500;min-height:5.4em}
 .heat .c{aspect-ratio:1;border-radius:3px;position:relative}
@@ -224,19 +248,54 @@ body.presenting{font-size:18px}
     <p class="muted">當你想到「生涯」，這些詞在你心裡是怎麼分組的？沒有標準答案，照你的直覺分就好。</p>
   </div>
   <ol class="steps">
-    <li><b class="n">1</b><div><b>點一張詞卡</b><br><span class="muted small">再選要放進哪個類別。放錯了，點那張卡就能再移動。</span></div></li>
-    <li><b class="n">2</b><div><b>替每個類別取名字</b><br><span class="muted small">預設 4 類，最多可以加到 6 類。真的不知道放哪，就放「不確定」。</span></div></li>
-    <li><b class="n">3</b><div><b>想到漏掉的詞？</b><br><span class="muted small">最多可以新增 2 張你自己的詞卡。</span></div></li>
+    <li><b class="n">1</b><div><b>先看過所有詞卡</b><br><span class="muted small">想一想它們可以怎麼分組。覺得少了什麼詞，最多可以新增 2 張。</span></div></li>
+    <li><b class="n">2</b><div><b>設定你的類別</b><br><span class="muted small">決定要分成幾類（2 到 6 類），並替每一類取名字。</span></div></li>
+    <li><b class="n">3</b><div><b>把詞卡放進類別</b><br><span class="muted small">點詞卡、再點類別。真的不知道放哪，就放「不確定」。</span></div></li>
     <li><b class="n">4</b><div><b>全部分完後送出</b><br><span class="muted small">完全匿名。送出後仍可修改，再送一次就會更新。</span></div></li>
   </ol>
-  <button class="btn block" id="startBtn">開始分類</button>
+  <button class="btn block" id="startBtn">開始</button>
   <p style="text-align:center;margin-top:24px"><button class="linkbtn" data-act="presenter">講者入口</button></p>
 </main>
 
-<!-- ======== 分類 ======== -->
+<!-- ======== 步驟 1：瀏覽詞卡 ======== -->
+<main id="preview" class="wrap hidden">
+  <div class="topbar">
+    <div class="row"><b>生涯排排樂</b><span class="small muted">步驟 1 / 3</span></div>
+    <div class="stepper"><i class="on"></i><i></i><i></i></div>
+  </div>
+  <div class="phase-head">
+    <h2>先看過所有詞卡</h2>
+    <p class="muted">慢慢讀一遍，想一想：哪些詞感覺是同一類？可以分成幾類？</p>
+  </div>
+  <div id="previewCards" class="pool preview"></div>
+  <div id="previewAdd"></div>
+  <p class="small muted" style="margin-top:14px">看完後，下一步要先決定類別，再把詞卡放進去。</p>
+  <p style="text-align:center;margin-top:28px"><button class="linkbtn" data-act="presenter">講者入口</button></p>
+</main>
+
+<!-- ======== 步驟 2：設定類別 ======== -->
+<main id="setup" class="wrap hidden">
+  <div class="topbar">
+    <div class="row"><b>生涯排排樂</b><span class="small muted">步驟 2 / 3</span></div>
+    <div class="stepper"><i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+  <div class="phase-head">
+    <h2>設定你的類別</h2>
+    <p class="muted">根據剛剛看到的詞卡，你會分成哪幾類？替每一類取個名字（2 到 6 類）。</p>
+  </div>
+  <div id="setupList" class="setup-list"></div>
+  <div id="setupAdd" style="margin-top:12px"></div>
+  <details class="peek">
+    <summary>再看一次詞卡</summary>
+    <div id="setupPeek" class="pool preview small-chips"></div>
+  </details>
+  <p style="text-align:center;margin-top:28px"><button class="linkbtn" data-act="presenter">講者入口</button></p>
+</main>
+
+<!-- ======== 步驟 3：分類 ======== -->
 <main id="sort" class="wrap hidden">
   <div class="topbar">
-    <div class="row"><b>生涯排排樂</b><span class="small muted" id="progText"></span></div>
+    <div class="row"><b>生涯排排樂</b><span class="small muted"><span id="progText"></span>・步驟 3 / 3</span></div>
     <div class="progress"><i id="progBar"></i></div>
   </div>
 
@@ -244,7 +303,7 @@ body.presenting{font-size:18px}
   <div id="pool" class="pool"></div>
   <div id="addWordArea"></div>
 
-  <div class="sec-title"><h2>我的類別</h2><span class="small muted">點標題替類別命名</span></div>
+  <div class="sec-title"><h2>我的類別</h2><button class="linkbtn" style="padding:0" id="backSetup">修改類別</button></div>
   <div id="cats" class="cats"></div>
   <div style="margin-top:12px" id="addCatArea"></div>
   <div style="margin-top:12px" id="unsureArea"></div>
@@ -283,7 +342,7 @@ body.presenting{font-size:18px}
         <button id="leaveBtn">離開</button>
       </div>
     </div>
-    <div id="demoBanner" class="banner hidden">示範模式：尚未設定 Google 試算表網址，資料只存在這台裝置。正式使用前請依 README 完成設定。</div>
+    <div id="demoBanner" class="banner hidden">示範模式：資料只存在這台裝置，不會寫入 Google 試算表。可以用「加入模擬資料」排練講解。</div>
     <section class="slide" id="slide"></section>
   </div>
   <div class="pnav"><button id="prevBtn" aria-label="上一頁">←</button><button id="nextBtn" aria-label="下一頁">→</button></div>
@@ -292,19 +351,21 @@ body.presenting{font-size:18px}
 <!-- 彈出視窗 -->
 <div class="modal hidden" id="modal"><div class="box" id="modalBox"></div></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="vendor/qrcode.min.js"></script>
 <script>
 (function(){
 "use strict";
 
 /* ================= 設定與資料 ================= */
 const CFG = window.CAREER_SORT_CONFIG || {};
-const API = (CFG.apiUrl || "").trim();
+// 網址加上 ?demo=1 可強制進入示範模式（排練用，不會寫入正式試算表）
+const FORCE_DEMO = /[?&]demo=1\b/.test(location.search);
+const API = FORCE_DEMO ? "" : (CFG.apiUrl || "").trim();
 const DEMO = !API;
 const PW_LOCAL = "0214";               // 只用於示範模式；正式模式由後端驗證
-const STORE_KEY = "career-sort-v1";
+const STORE_KEY = DEMO ? "career-sort-demo-v2" : "career-sort-v2";
 const DEMO_KEY = "career-sort-demo-rows";
-const MAX_CATS = 6, START_CATS = 4, MAX_CUSTOM = 2;
+const MAX_CATS = 6, MIN_CATS = 2, START_CATS = 4, MAX_CUSTOM = 2;
 
 // 論文四面向（王秀槐、陳珍德，2019）與對應詞卡
 const FACETS = [
@@ -344,7 +405,7 @@ function toast(msg) {
 }
 
 function show(screen) {
-  ["intro","sort","done","presenter"].forEach(id => $(id).classList.toggle("hidden", id !== screen));
+  ["intro","preview","setup","sort","done","presenter"].forEach(id => $(id).classList.toggle("hidden", id !== screen));
   document.body.classList.toggle("presenting", screen === "presenter");
   if (screen !== "sort") $("dock").classList.add("hidden");
   window.scrollTo(0, 0);
@@ -382,10 +443,10 @@ function freshState() {
   return {
     clientId: uid(), pool: shuffle(BASE), custom: [], uncertain: [],
     cats: Array.from({ length: START_CATS }, () => ({ id: uid(), name: "", cards: [] })),
-    nickname: "", submitted: false, started: false
+    nickname: "", submitted: false, phase: "intro"
   };
 }
-if (!S || !Array.isArray(S.cats)) S = freshState();
+if (!S || !Array.isArray(S.cats) || !S.phase) S = freshState();
 const save = () => lsSet(STORE_KEY, S);
 let selected = null;      // { card, from: "pool" | catId | "u" }
 let addingWord = false;
@@ -411,47 +472,126 @@ function chipHTML(card, from) {
   return `<button class="chip${sel}${cus}" data-card="${esc(card)}" data-from="${esc(from)}">${esc(card)}</button>`;
 }
 
+/* ---------- 新增自己的詞（步驟 1 與步驟 3 共用） ---------- */
+function renderAddWord(el, rerender) {
+  const left = MAX_CUSTOM - S.custom.length;
+  if (addingWord) {
+    el.innerHTML = `<div class="addword"><input id="newWord" maxlength="10" placeholder="輸入一個詞（10 字以內）" enterkeyhint="done"><button class="btn" id="addWordOk">加入</button><button class="btn ghost" id="addWordCancel">取消</button></div>`;
+    const inp = $("newWord"); inp.focus();
+    const ok = () => addWord(rerender);
+    inp.addEventListener("keydown", e => { if (e.key === "Enter") ok(); });
+    $("addWordOk").onclick = ok;
+    $("addWordCancel").onclick = () => { addingWord = false; rerender(); };
+  } else {
+    el.innerHTML = left > 0
+      ? `<button class="linkbtn" style="color:var(--accent);text-decoration:none;font-weight:700;padding:.6em 0" id="addWordBtn">＋ 覺得少了什麼詞？新增自己的詞（還可以加 ${left} 張）</button>`
+      : `<p class="small muted" style="margin:.6em 0 0">已新增 2 張自己的詞。</p>`;
+    const b = $("addWordBtn"); if (b) b.onclick = () => { addingWord = true; selected = null; rerender(); };
+  }
+}
+function addWord(rerender) {
+  const inp = $("newWord"); const w = norm(inp.value);
+  if (!w) { toast("請輸入一個詞"); return; }
+  if (BASE_SET.has(w) || S.custom.includes(w)) { toast("這個詞已經有了"); return; }
+  if (S.custom.length >= MAX_CUSTOM) return;
+  S.custom.push(w); S.pool.push(w); addingWord = false; save(); rerender();
+  toast(`已加入「${w}」`);
+}
+function allCards() { return S.pool.concat(...S.cats.map(c => c.cards), S.uncertain); }
+const cardChip = c => `<span class="chip${S.custom.includes(c) ? " custom" : ""}">${esc(c)}</span>`;
+
+/* ---------- 步驟切換 ---------- */
+function goPhase(ph) {
+  S.phase = ph; selected = null; addingWord = false; save();
+  if (ph === "done") { renderDone(); show("done"); return; }
+  show(ph);
+  ({ preview: renderPreview, setup: renderSetup, sort: renderSort })[ph]?.();
+}
+
+/* ---------- 步驟 1：瀏覽詞卡 ---------- */
+function renderPreview() {
+  // 顯示順序和之後的詞卡區一致（每人隨機）
+  $("previewCards").innerHTML = allCards().map(cardChip).join("");
+  $("previewCards").querySelectorAll(".chip.custom").forEach(el => {
+    el.insertAdjacentHTML("beforeend", ` <button class="x" style="border:0;background:none;color:var(--ink-3);padding:0 0 0 .2em" data-rmword="${esc(el.textContent)}" aria-label="刪除">×</button>`);
+  });
+  renderAddWord($("previewAdd"), renderPreview);
+  setDock(`<button class="btn block" id="toSetup">看完了，下一步：設定類別</button>`);
+  $("toSetup").onclick = () => goPhase("setup");
+}
+$("preview").addEventListener("click", e => {
+  const b = e.target.closest("[data-rmword]"); if (!b) return;
+  const w = b.dataset.rmword;
+  [S.pool, S.uncertain, ...S.cats.map(c => c.cards)].forEach(l => { const i = l.indexOf(w); if (i >= 0) l.splice(i, 1); });
+  S.custom = S.custom.filter(x => x !== w); save(); renderPreview();
+});
+
+/* ---------- 步驟 2：設定類別 ---------- */
+function renderSetup() {
+  $("setupList").innerHTML = S.cats.map((c, i) => `
+    <div class="setup-row">
+      <span class="num">${i + 1}</span>
+      <input value="${esc(c.name)}" data-sname="${c.id}" maxlength="12" placeholder="類別 ${i + 1} 的名稱" aria-label="類別 ${i + 1} 名稱">
+      ${c.cards.length ? `<span class="meta">已放 ${c.cards.length} 張</span>` : ""}
+      ${S.cats.length > MIN_CATS ? `<button class="x" data-sdel="${c.id}" aria-label="刪除類別">×</button>` : ""}
+    </div>`).join("");
+  $("setupAdd").innerHTML = S.cats.length < MAX_CATS
+    ? `<button class="btn ghost block" id="setupAddBtn">＋ 再加一類（目前 ${S.cats.length} 類，最多 ${MAX_CATS} 類）</button>`
+    : `<p class="small muted" style="text-align:center">已經是最多的 ${MAX_CATS} 類。</p>`;
+  const ab = $("setupAddBtn"); if (ab) ab.onclick = () => { S.cats.push({ id: uid(), name: "", cards: [] }); save(); renderSetup(); const ins = document.querySelectorAll("[data-sname]"); ins[ins.length - 1].focus(); };
+  $("setupPeek").innerHTML = allCards().map(cardChip).join("");
+  setDock(`<div style="display:flex;gap:10px"><button class="btn ghost" id="toPreview">上一步</button><button class="btn" style="flex:1" id="toSort">${allCards().length === S.pool.length ? "開始分類" : "回到分類"}</button></div>`);
+  $("toPreview").onclick = () => goPhase("preview");
+  $("toSort").onclick = finishSetup;
+}
+$("setup").addEventListener("input", e => {
+  const id = e.target.dataset && e.target.dataset.sname; if (!id) return;
+  const c = S.cats.find(c => c.id === id); if (c) { c.name = e.target.value; e.target.classList.remove("need"); save(); }
+});
+$("setup").addEventListener("click", e => {
+  const d = e.target.closest("[data-sdel]"); if (!d) return;
+  const c = S.cats.find(c => c.id === d.dataset.sdel); if (!c) return;
+  S.pool.push(...c.cards); S.cats = S.cats.filter(x => x !== c); save(); renderSetup();
+  if (c.cards.length) toast(`「${norm(c.name) || "這一類"}」裡的 ${c.cards.length} 張詞卡回到詞卡區`);
+});
+function finishSetup() {
+  const inputs = [...document.querySelectorAll("[data-sname]")];
+  const empty = inputs.filter(i => !norm(i.value));
+  if (empty.length) { empty.forEach(i => i.classList.add("need")); empty[0].focus(); toast("每一類都要取名字；不需要的類別可以按 × 刪除"); return; }
+  const names = S.cats.map(c => norm(c.name));
+  const dup = names.find((n, i) => names.indexOf(n) !== i);
+  if (dup) { toast(`有兩個類別都叫「${dup}」，請改成不同的名字`); return; }
+  S.cats.forEach(c => c.name = norm(c.name));
+  goPhase("sort");
+}
+
+/* ---------- 步驟 3：分類 ---------- */
+function setDock(html) { $("dock").classList.remove("hidden"); $("dockInner").innerHTML = html; }
+
 function renderSort() {
-  // 進度
   const done = sortedCount(), total = totalCount();
   $("progText").textContent = `已分類 ${done} / ${total}`;
   $("progBar").style.width = (total ? done / total * 100 : 0) + "%";
 
-  // 詞卡區
   const pool = $("pool");
   if (S.pool.length) { pool.className = "pool"; pool.innerHTML = S.pool.map(c => chipHTML(c, "pool")).join(""); }
-  else { pool.className = "pool empty"; pool.textContent = "詞卡都分完了！檢查類別名稱後就可以送出。"; }
+  else { pool.className = "pool empty"; pool.textContent = "詞卡都分完了！確認沒問題就可以送出。"; }
 
-  // 新增詞卡
-  const left = MAX_CUSTOM - S.custom.length;
-  const aw = $("addWordArea");
-  if (addingWord) {
-    aw.innerHTML = `<div class="addword"><input id="newWord" maxlength="10" placeholder="輸入一個詞（10 字以內）" enterkeyhint="done"><button class="btn" id="addWordOk">加入</button><button class="btn ghost" id="addWordCancel">取消</button></div>`;
-    const inp = $("newWord"); inp.focus();
-    inp.addEventListener("keydown", e => { if (e.key === "Enter") addWord(); });
-    $("addWordOk").onclick = addWord;
-    $("addWordCancel").onclick = () => { addingWord = false; renderSort(); };
-  } else {
-    aw.innerHTML = left > 0
-      ? `<button class="linkbtn" style="color:var(--accent);text-decoration:none;font-weight:700;padding:.6em 0" id="addWordBtn">＋ 新增自己的詞（還可以加 ${left} 張）</button>`
-      : `<p class="small muted" style="margin:.6em 0 0">已新增 2 張自己的詞。</p>`;
-    const b = $("addWordBtn"); if (b) b.onclick = () => { addingWord = true; selected = null; renderSort(); };
-  }
+  renderAddWord($("addWordArea"), renderSort);
 
-  // 類別
   $("cats").innerHTML = S.cats.map((c, i) => `
     <div class="cat${selected && selected.from !== c.id ? " target" : ""}" data-cat="${c.id}">
       <div class="cat-head">
-        <input value="${esc(c.name)}" data-name="${c.id}" maxlength="12" placeholder="類別 ${i + 1}：點這裡命名" aria-label="類別 ${i + 1} 名稱">
+        <span class="cat-name">${esc(catLabel(c, i))}</span>
         <span class="count">${c.cards.length} 張</span>
-        ${S.cats.length > 1 ? `<button class="x" data-del="${c.id}" aria-label="刪除類別">×</button>` : ""}
+        <button class="ren" data-ren="${c.id}">改名</button>
       </div>
       <div class="cat-body" data-drop="${c.id}">${c.cards.length ? c.cards.map(k => chipHTML(k, c.id)).join("") : `<span class="hint">${selected ? "點這裡放入" : "還沒有詞卡"}</span>`}</div>
     </div>`).join("");
 
   $("addCatArea").innerHTML = S.cats.length < MAX_CATS
-    ? `<button class="btn ghost block" id="addCatBtn">＋ 新增類別（最多 ${MAX_CATS} 類）</button>` : "";
-  const ac = $("addCatBtn"); if (ac) ac.onclick = () => { S.cats.push({ id: uid(), name: "", cards: [] }); save(); renderSort(); };
+    ? `<button class="btn ghost block" id="addCatBtn">＋ 新增一個類別</button>` : "";
+  const ac = $("addCatBtn"); if (ac) ac.onclick = () => nameModal("新增類別", "", name => { S.cats.push({ id: uid(), name, cards: [] }); save(); renderSort(); });
 
   $("unsureArea").innerHTML = `
     <div class="cat unsure${selected && selected.from !== "u" ? " target" : ""}" data-cat="u">
@@ -462,10 +602,24 @@ function renderSort() {
   renderDock();
 }
 
+function nameModal(title, value, onOk, exceptId) {
+  openModal(`
+    <h3>${esc(title)}</h3>
+    <input id="catNameInput" maxlength="12" placeholder="類別名稱" value="${esc(value)}">
+    <div class="err" id="catNameErr"></div>
+    <div class="actions"><button class="btn ghost" data-close>取消</button><button class="btn" id="catNameOk">確定</button></div>`);
+  const ok = () => {
+    const n = norm($("catNameInput").value);
+    if (!n) { $("catNameErr").textContent = "請輸入名稱"; return; }
+    if (S.cats.some(c => c.id !== exceptId && norm(c.name) === n)) { $("catNameErr").textContent = "已經有同名的類別"; return; }
+    closeModal(); onOk(n);
+  };
+  $("catNameOk").onclick = ok;
+  $("catNameInput").addEventListener("keydown", e => { if (e.key === "Enter") ok(); });
+}
+
 function renderDock() {
-  const dock = $("dock"), inner = $("dockInner");
   $("sort").classList.toggle("sheet-open", !!selected);
-  dock.classList.remove("hidden");
   if (selected) {
     const { card, from } = selected;
     const btns = S.cats.filter(c => c.id !== from).map(c => `<button data-to="${c.id}">${esc(catLabel(c, S.cats.indexOf(c)))}</button>`);
@@ -473,22 +627,13 @@ function renderDock() {
     if (from !== "pool") btns.push(`<button class="minor" data-to="pool">放回詞卡區</button>`);
     if (S.custom.includes(card)) btns.push(`<button class="del" data-delword="1">刪除這張詞卡</button>`);
     btns.push(`<button class="minor" data-cancel="1">取消</button>`);
-    inner.innerHTML = `<div class="sheet-title">把 <b>${esc(card)}</b> 放進：</div><div class="dest">${btns.join("")}</div>`;
+    setDock(`<div class="sheet-title">把 <b>${esc(card)}</b> 放進：</div><div class="dest">${btns.join("")}</div>`);
   } else {
     const ready = S.pool.length === 0;
-    inner.innerHTML = `<button class="btn block" id="submitBtn">${ready ? (S.submitted ? "重新送出分類" : "送出分類") : `還有 ${S.pool.length} 張詞卡沒分類`}</button>`;
+    setDock(`<button class="btn block" id="submitBtn">${ready ? (S.submitted ? "重新送出分類" : "送出分類") : `還有 ${S.pool.length} 張詞卡沒分類`}</button>`);
     $("submitBtn").disabled = !ready;
     $("submitBtn").onclick = trySubmit;
   }
-}
-
-function addWord() {
-  const inp = $("newWord"); const w = norm(inp.value);
-  if (!w) { toast("請輸入一個詞"); return; }
-  if (BASE_SET.has(w) || S.custom.includes(w)) { toast("這個詞已經有了"); return; }
-  if (S.custom.length >= MAX_CUSTOM) return;
-  S.custom.push(w); S.pool.push(w); addingWord = false; save(); renderSort();
-  toast(`已加入「${w}」，記得把它分類`);
 }
 
 /* 點擊事件（分類頁） */
@@ -499,22 +644,17 @@ $("sort").addEventListener("click", e => {
     selected = (selected && selected.card === card) ? null : { card, from };
     renderSort(); return;
   }
-  const del = e.target.closest("[data-del]");
-  if (del) {
-    const c = S.cats.find(c => c.id === del.dataset.del);
-    if (c) { S.pool.push(...c.cards); S.cats = S.cats.filter(x => x !== c); selected = null; save(); renderSort(); if (c.cards.length) toast("類別已刪除，裡面的詞卡回到詞卡區"); }
+  const ren = e.target.closest("[data-ren]");
+  if (ren) {
+    const c = S.cats.find(c => c.id === ren.dataset.ren);
+    if (c) nameModal("修改類別名稱", c.name, n => { c.name = n; save(); renderSort(); }, c.id);
     return;
   }
-  if (e.target.closest("input")) return;
+  if (e.target.closest("#backSetup")) { goPhase("setup"); return; }
   const box = e.target.closest("[data-cat]");
   if (box && selected && selected.from !== box.dataset.cat) {
     moveCard(selected.card, selected.from, box.dataset.cat); selected = null; save(); renderSort();
   }
-});
-$("sort").addEventListener("input", e => {
-  const id = e.target.dataset && e.target.dataset.name;
-  if (!id) return;
-  const c = S.cats.find(c => c.id === id); if (c) { c.name = e.target.value; e.target.classList.remove("need"); save(); }
 });
 $("dock").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b || !selected) return;
@@ -533,15 +673,7 @@ $("dock").addEventListener("click", e => {
 /* 送出 */
 function trySubmit() {
   if (S.pool.length) { toast(`還有 ${S.pool.length} 張詞卡沒分類`); return; }
-  const unnamed = S.cats.filter(c => c.cards.length && !norm(c.name));
-  if (unnamed.length) {
-    renderSort();
-    unnamed.forEach(c => { const el = document.querySelector(`[data-name="${c.id}"]`); if (el) el.classList.add("need"); });
-    const first = document.querySelector(`[data-name="${unnamed[0].id}"]`);
-    if (first) { first.scrollIntoView({ block: "center", behavior: "smooth" }); setTimeout(() => first.focus(), 300); }
-    toast("請替有詞卡的類別取個名字");
-    return;
-  }
+  if (S.cats.some(c => c.cards.length && !norm(c.name))) { toast("有類別還沒取名字，請按「修改類別」"); return; }
   if (!S.cats.some(c => c.cards.length)) { toast("至少要把一些詞卡放進類別裡"); return; }
   openModal(`
     <h3>${S.submitted ? "重新送出分類" : "送出分類"}</h3>
@@ -562,7 +694,7 @@ async function doSubmit() {
   try {
     const res = await apiPost({ action: "submit", clientId: S.clientId, nickname: S.nickname, data });
     if (!res || !res.ok) throw new Error(res && res.error || "failed");
-    S.submitted = true; save(); closeModal(); renderDone(); show("done");
+    S.submitted = true; closeModal(); goPhase("done");
   } catch (err) {
     $("subErr").textContent = "送出失敗，請確認網路後再按一次。";
     btn.disabled = false; btn.textContent = "再試一次";
@@ -579,8 +711,8 @@ function renderDone() {
   $("mine").innerHTML = blocks.join("");
 }
 
-$("startBtn").onclick = () => { S.started = true; save(); show("sort"); renderSort(); };
-$("editBtn").onclick = () => { show("sort"); selected = null; renderSort(); };
+$("startBtn").onclick = () => goPhase("preview");
+$("editBtn").onclick = () => goPhase("sort");
 
 /* ================= 彈出視窗 ================= */
 function openModal(html) { $("modalBox").innerHTML = html; $("modal").classList.remove("hidden"); const i = $("modalBox").querySelector("input"); if (i) setTimeout(() => i.focus(), 50); }
@@ -759,6 +891,17 @@ function cloudHTML(counts, max) {
   }).join("")}</div>`;
 }
 
+// 讓熱圖剛好放進投影畫面的高度（格子是正方形，所以列的總高約等於寬度減去左側標籤寬）
+function fitHeat() {
+  const h = document.querySelector(".heat"); if (!h) return;
+  h.style.maxWidth = "";
+  const top = h.getBoundingClientRect().top + window.scrollY;
+  const lblW = h.querySelector(".lbl").offsetWidth, colH = h.querySelector(".clbl").offsetHeight;
+  const avail = window.innerHeight - top - 16;
+  h.style.maxWidth = Math.max(280, avail - colH + lblW) + "px";
+}
+window.addEventListener("resize", () => { if (P.tab === 2 && !$("presenter").classList.contains("hidden")) fitHeat(); });
+
 function renderSlide() {
   const el = $("slide"); const A = aggregate(P.rows);
   const empty = `<div class="empty-state">還沒有人送出分類。請大家掃描第 1 頁的 QR code。</div>`;
@@ -811,20 +954,21 @@ function renderSlide() {
       <p class="lead">顏色越深，代表越多人把這兩個詞分在同一類。這就是論文用來畫出生涯心智地圖的「群集分析」原理。</p>
       <div class="heat-wrap">
         <div>
+          <div class="heat" style="grid-template-columns:auto repeat(${BASE.length},minmax(0,1fr))">${cells}</div>
+        </div>
+        <div class="side">
           <div class="heat-ctrl">
             <button data-order="cluster" class="${P.order === "cluster" ? "on" : ""}">依全場分類排序</button>
             <button data-order="paper" class="${P.order === "paper" ? "on" : ""}">依論文四面向排序</button>
           </div>
-          <div class="heat" style="grid-template-columns:auto repeat(${BASE.length},minmax(0,1fr))">${cells}</div>
-          <div class="legend"><span>0%</span><i></i><span>100% 的人放在一起</span></div>
-          <div class="hover-info" id="hoverInfo">把滑鼠移到格子上可以看比例。</div>
-        </div>
-        <div class="side">
+          <div class="legend" style="margin:0 0 6px"><span>0%</span><i></i><span>100%</span></div>
+          <div class="hover-info" id="hoverInfo" style="margin:0 0 16px">滑鼠移到格子上可以看比例。</div>
           <h3>最常被放在一起的詞</h3>
-          <ol class="pairs">${pairs.slice(0, 8).map(([i, j, v]) => `<li><span>${esc(BASE[i])} ＋ ${esc(BASE[j])}</span><b>${pct(v)}</b></li>`).join("")}</ol>
+          <ol class="pairs">${pairs.slice(0, 6).map(([i, j, v]) => `<li><span>${esc(BASE[i])} ＋ ${esc(BASE[j])}</span><b>${pct(v)}</b></li>`).join("")}</ol>
         </div>
       </div>`;
     el.querySelectorAll("[data-order]").forEach(b => b.onclick = () => { P.order = b.dataset.order; renderSlide(); });
+    fitHeat();
     el.querySelector(".heat").addEventListener("mouseover", e => {
       const c = e.target.closest(".c"); if (!c) return;
       const i = +c.dataset.i, j = +c.dataset.j;
@@ -893,13 +1037,12 @@ function boot() {
   const pw = ssGet("career-sort-pw");
   if (location.hash === "#presenter") {
     if (pw) { apiResults(pw).then(res => res.ok ? enterPresenter(pw, res.rows) : (show("intro"), askPassword())).catch(() => { show("intro"); askPassword(); }); return; }
-    show(S.started ? (S.submitted ? "done" : "sort") : "intro");
-    if (S.submitted) renderDone(); else if (S.started) renderSort();
-    askPassword(); return;
+    resumeStudent(); askPassword(); return;
   }
-  if (S.submitted) { renderDone(); show("done"); }
-  else if (S.started) { show("sort"); renderSort(); }
-  else show("intro");
+  resumeStudent();
+}
+function resumeStudent() {
+  if (S.phase === "intro") show("intro"); else goPhase(S.phase);
 }
 boot();
 })();
